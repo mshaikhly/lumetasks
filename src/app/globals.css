@@ -2,20 +2,280 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+body {
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 10% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+@layer base {
+  [name="theme-color"] {
+    content: var(--background);
+  }
+}
+
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari, and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge, and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+.fc-toolbar-title {
+  @apply text-foreground; /* Match theme's text color */
+}
+
+.fc-col-header-cell {
+  @apply bg-background text-foreground; /* Match header background and text */
+}
+
+.fc-daygrid-day {
+  @apply bg-background; /* Ensure day cells match theme */
+}
+
+.fc-scrollgrid-sync-table th:first-child,
+.fc-col-header th:first-child {
+  @apply bg-background text-foreground; /* Match the theme */
+}
+
+/* Apply the Inter font to all FullCalendar elements */
+.fc {
+  font-family: var(--font-inter), sans-serif; /* Use Inter with fallback */
+  width: auto;
+  height: auto;
+
+}
+
+.fc-scrollgrid {
+  border-color: var(--border); /* Use the theme's border color */
+  overflow: auto;
+  border-collapse: collapse; /* Ensure no gaps between columns */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* Hide scrollbar for Chrome, Safari, and Opera */
+.fc-scrollgrid::-webkit-scrollbar {
+  display: none;
+}
+
+/* Selected Date Highlight */
+.fc-daygrid-day.fc-day-today {
+  @apply bg-secondary text-secondary-foreground;
+}
+
+/* Hover Effects */
+.fc-day:hover {
+  @apply bg-muted text-muted-foreground cursor-pointer;
+}
+
+/* FullCalendar Borders */
+.fc-scrollgrid,
+.fc-scrollgrid-sync-table,
+.fc-scrollgrid-section,
+.fc-daygrid-day,
+.fc-col-header-cell {
+  border-color: var(--border); /* Match theme's border color */
+}
+
+/* Column Header Borders */
+.fc-col-header-cell {
+  border-bottom: 1px solid var(--border);
+}
+
+/* Day Cell Borders */
+.fc-daygrid-day {
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Remove Extra Borders at Edges */
+.fc-scrollgrid-sync-table th:first-child,
+.fc-scrollgrid-sync-table th:last-child,
+.fc-daygrid-day:first-child,
+.fc-daygrid-day:last-child {
+  border-left: none;
+  border-right: none;
+}
+
+/* Hover and Focus States */
+.fc-daygrid-day:hover {
+  border-color: var(--accent);
+}
+
+.fc-daygrid-day.fc-day-today {
+  border-color: var(--accent);
+}
+
+/* Default Borders for Empty Spaces */
+.fc-scrollgrid,
+.fc-daygrid-empty-cell {
+  border-color: var(--border);
+}
+
+.fc-scrollgrid-sync-inner {
+  background-color: var(--background); /* Match theme background */
+  color: var(--foreground); /* Match text color */
+  min-width: 100%; /* Prevent additional columns */
+  max-width: 100%;
+}
+
+.fc-scrollgrid-sync-table {
+  table-layout: fixed; /* Fix column alignment */
+  width: 100%; /* Match container width */
+}
+
+
+
+/* Hide scrollbars on FullCalendar's content container */
+.fc-view-container {
+  overflow: auto; /* Allow scrolling */
+}
+
+.fc-view-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.fc-view-container {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.fc-scroller {
+  overflow-y: auto !important; /* Ensure vertical scrolling is available */
+}
+
+.fc-scroller::-webkit-scrollbar {
+  display: none !important; /* Hide Chrome/Safari/Opera scrollbars */
+}
+
+.fc-scroller {
+  -ms-overflow-style: none !important; /* Hide IE/Edge scrollbars */
+  scrollbar-width: none !important; /* Hide Firefox scrollbars */
+}
+
+/* General Calendar Button Styling with Borders */
+.fc .fc-button {
+  background-color: var(--primary, #007bff); /* Fallback to blue */
+  color: var(--primary-foreground, #fff); /* Fallback to white */
+  border: 1px solid var(--border, #ccc); /* Ensure border has a fallback */
+  border-radius: 0.375rem;
+  padding: 0.5rem 1rem;
+  box-shadow: none;
+  outline: none;
+}
+
+/* Hover and Focus States with Borders */
+.fc .fc-button:hover, .fc .fc-button:focus {
+  background-color: var(--accent, #ffcc00);
+  color: var(--accent-foreground, #000);
+  border-color: var(--accent, #ffcc00); /* Match hover border to accent */
+}
+
+/* Disabled State with Borders */
+.fc .fc-button:disabled {
+  background-color: var(--muted, #e0e0e0);
+  color: var(--muted-foreground, #9e9e9e);
+  border: 1px solid var(--muted, #e0e0e0);
+}
+
+/* Specific Prev/Next Button Styling with Borders */
+.fc .fc-prev-button, .fc .fc-next-button {
+  background-color: var(--primary); /* Match theme variable */
+  color: var(--primary-foreground);
+  border: 1px solid var(--border); /* Add border for navigation buttons */
+}
+
+/* Adjust Hover States for Prev/Next Buttons */
+.fc .fc-prev-button:hover, .fc .fc-next-button:hover {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+  border-color: var(--accent); /* Match hover border to accent */
+}
+
+/* Today Button with Borders */
+.fc .fc-today-button {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border: 1px solid var(--border); /* Add border for Today button */
+}
+
+/* Today Button Hover State */
+.fc .fc-today-button:hover {
+  background-color: var(--accent);
+  color: var(--accent-foreground);
+  border-color: var(--accent); /* Match hover border to accent */
+}
+
+.fc .fc-toolbar-title,
+.fc .fc-button {
+    text-transform: capitalize;
 }

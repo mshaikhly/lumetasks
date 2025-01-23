@@ -114,12 +114,12 @@ export default function AboutDialog() {
           <p>
             View the code for this project on GitHub:{" "}
             <a
-              href="https://github.com/mshaikhly"
+              href="https://github.com/mshaikhly/lumetasks"
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-600 underline"
             >
-              https://github.com/mshaikhly
+              https://github.com/mshaikhly/lumetasks
             </a>
           </p>
         </div>

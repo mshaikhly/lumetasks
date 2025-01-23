@@ -65,14 +65,28 @@ export const useProjectStore = create<ProjectStore>()(
             project.id === id ? { ...project, status: newStatus } : project
           ),
         })),
-      deleteSelectedProjects: () =>
-        set((state) => ({
-          projects: state.projects.filter(
-            (project) => !state.selectedProjects.includes(project.id)
-          ),
-          selectedProjects: [],
-          isDeleteOpen: false,
-        })),
+        deleteSelectedProjects: () => {
+          const taskStore = useTaskTableStore.getState(); // Access the task store
+          set((state) => {
+            // Filter out projects that are not selected
+            const remainingProjects = state.projects.filter(
+              (project) => !state.selectedProjects.includes(project.id)
+            );
+        
+            // Delete tasks associated with the deleted projects
+            taskStore.set({
+              tasks: taskStore.tasks.filter(
+                (task) => !state.selectedProjects.includes(task.projectId)
+              ),
+            });
+        
+            return {
+              projects: remainingProjects,
+              selectedProjects: [],
+              isDeleteOpen: false,
+            };
+          });
+        },
       toggleProjectSelection: (id) =>
         set((state) => ({
           selectedProjects: state.selectedProjects.includes(id)

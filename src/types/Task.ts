@@ -26,6 +26,7 @@ export type TaskStore = {
   toggleTaskSelection: (id: string) => void;
   toggleSelectAll: () => void;
   resetTasks: () => void; // Reset projects to initial state
+  set: (partialState: Partial<TaskStore>) => void; // Add this line
 };
 
 export interface AccordionStore {
